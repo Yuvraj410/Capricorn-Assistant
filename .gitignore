@@ -1,0 +1,39 @@
+# environment
+.venv/
+capricorn-data/
+capricon-data/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# models & personal data (live in capricorn-data/, but just in case)
+models/
+voice_cache/
+*.log
+.env
+*.env
+settings.local.yaml
+permissions.local.yaml
+
+# personal voice recordings - never publish
+reference-voices/
+*.mp3
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# build leftovers
+*.pdb
+installer/icon.ico
+launcher/icon.ico
+
+# created by Setup.exe in the install folder (also when installing "right here" in a clone)
+/Capricorn.exe
+/Capricorn.bat
+/Capricorn-debug.bat
+/update.bat
+/install_startup.bat
+/remove_startup.bat

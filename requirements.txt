@@ -1,0 +1,20 @@
+# Capricorn - Python 3.12 (setup.bat creates the venv)
+PyQt6>=6.6
+PyYAML>=6.0
+requests>=2.31
+numpy>=1.26
+rapidfuzz>=3.5
+sounddevice>=0.4.6
+vosk>=0.3.45
+faster-whisper>=1.0.3
+psutil>=5.9
+ytmusicapi>=1.8          # free song lookup so "play X" actually plays
+ddgs>=9.0                # free web search so Capri can look things up and tell you the answer
+
+# Windows-only extras
+pywin32>=306 ; sys_platform == "win32"
+winrt-runtime>=2.0 ; sys_platform == "win32"
+winrt-Windows.Foundation>=2.0 ; sys_platform == "win32"
+winrt-Windows.Foundation.Collections>=2.0 ; sys_platform == "win32"
+winrt-Windows.Media.Control>=2.0 ; sys_platform == "win32"
+pycaw>=20240316 ; sys_platform == "win32"      # per-app volume: music ducks while Capri talks

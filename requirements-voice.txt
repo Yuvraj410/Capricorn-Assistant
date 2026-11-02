@@ -1,0 +1,23 @@
+# Capri's own voice (optional) - installed into capricorn-data\voice-env by
+# commands\install-capri-voice.bat (scripts\install_voice.py). Kept separate from the app's
+# environment because PyTorch is big (~3 GB with CUDA) and pins its own numpy.
+#
+# torch + torchaudio are installed first from the PyTorch index:
+#   NVIDIA GPU -> CUDA 12.8 build (supports RTX 20xx - 50xx), otherwise the CPU build.
+# chatterbox-tts itself is installed with --no-deps: its metadata pins torch 2.6, which has
+# no kernels for RTX 50-series GPUs. These are its real runtime dependencies:
+numpy<2
+librosa==0.11.0
+soundfile>=0.12
+s3tokenizer==0.3.0
+onnx>=1.17
+ml_dtypes>=0.5
+transformers==5.2.0
+diffusers==0.29.0
+resemble-perth>=1.0.0
+conformer==0.3.2
+safetensors==0.5.3
+pyloudnorm
+omegaconf
+einops
+huggingface_hub

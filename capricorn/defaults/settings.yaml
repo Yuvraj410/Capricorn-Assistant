@@ -1,0 +1,134 @@
+# Capricorn settings.
+# Your personal copy lives in capricorn-data\settings.yaml (created on first run).
+# Anything you leave out falls back to these defaults.
+
+wake:
+  enabled: true
+  # Words that wake Capri. Say them alone ("Hey Capri") or followed by a command
+  # ("Capri, open YouTube"). Matching is fuzzy, because speech recognisers hear
+  # "Capricorn" in many ways.
+  words: ["capri", "capricorn", "capricon"]
+  # Short wake word "C" (heard as "see" / "sea" / "si"). Works as "Hey C ..." or as the first word
+  # followed by a command ("C, open YouTube"), so everyday "I see" / "see you" won't wake Capri.
+  # Remove it ( short_words: [] ) if you get false wake-ups.
+  short_words: ["c", "see", "sea", "si", "cee", "ce"]
+  # Extra spellings the recognisers commonly produce for the words above.
+  aliases: ["capricorne", "caprie", "capree", "kapri", "capra", "caprese", "capricone", "capri con", "capri corn"]
+  # Vosk (always-on, tiny, CPU) spots the wake word; Whisper then transcribes the
+  # whole sentence. Set to false to skip the second check (faster, more false wakes).
+  verify_with_whisper: true
+  # Minimum Vosk confidence (0-1) for the wake word. Raise it if Capri wakes up by accident.
+  min_confidence: 0.55
+  # Seconds to wait for a command after a bare "Hey Capri".
+  command_timeout: 6.0
+  # Seconds of silence that end a command. Higher = you can pause mid-sentence
+  # ("play... my liked music") without being cut off; lower = faster replies.
+  end_silence: 1.8
+  # Microphone: null = Windows default input device, or a device name / index.
+  input_device: null
+
+stt:
+  # faster-whisper model: tiny.en | base.en | small.en | medium.en
+  model: small.en
+  # cpu works everywhere. "cuda" uses your NVIDIA GPU (needs CUDA 12 + cuDNN 9 libraries,
+  # installed by setup.bat). "auto" tries cuda and falls back to cpu.
+  device: cpu
+  compute_type: int8          # int8 for cpu, float16 for cuda
+  cpu_threads: 4
+
+brain:
+  # Free local LLM through Ollama (https://ollama.com). Nothing leaves your PC.
+  ollama_url: http://127.0.0.1:11434
+  model: qwen3:4b
+  keep_alive: 5m              # unload the model after this idle time (frees VRAM for games)
+  temperature: 0.8
+  history_turns: 10
+  timeout: 60
+
+personality:
+  # How much Night City slang Capri uses: 0 none, 1 light (default), 2 regular, 3 heavy
+  slang: 1
+  # Gen Z / internet slang (no cap, ngl, mid, ate...): 0 off, 1 rare (default), 2 sometimes
+  genz_slang: 1
+  # Attitude: 0 just helpful, 1 light wit, 2 playful roasting (default), 3 maximum sass
+  sass: 2
+  reply_length: short         # short | medium
+
+conversation:
+  # After Capri answers, keep listening a few seconds so you can just reply - no "Hey Capri" needed
+  # (like talking to a person). Say "thanks" / "that's all" to end it early.
+  follow_up: true
+  follow_up_seconds: 5.0      # how long she waits for you to start talking after a normal reply
+  answer_seconds: 8.0         # ... after she asked you a question (yes/no, "web search?")
+
+ui:
+  scale: 0.42                 # character size (1.0 = 512 px)
+  position: bottom-right      # bottom-right | bottom-left | top-right | top-left | custom
+  custom_xy: null             # [x, y] when position = custom (set automatically when you drag Capri)
+  margin: 24
+  hide_after: 9.0             # seconds the reply stays on screen
+  always_visible: false       # keep Capri on screen (blinking) even when idle
+  typewriter_cps: 45          # characters per second for the text reveal
+  hotkey: ctrl+alt+c          # opens the chat window (type instead of talk)
+  # Look: "normal" = full Capri with chat bubbles; "minimal" = just the animated visor face,
+  # no chat bubbles (replies show in the chat window). Say "minimal mode" / "normal mode".
+  mode: normal
+  minimal_scale: 0.36          # size of the minimal face (1.0 = 501 px wide)
+  # In minimal mode Capri stays on screen (idle <-> glitch) unless you say "hide yourself".
+  minimal_always_visible: true
+  show_user_text: true        # show what Capri heard under the reply
+  greet_on_start: true        # say hi when Capricorn starts
+
+voice:
+  # Spoken replies:
+  #   auto  - Capri's own voice once it's installed (commands\install-capri-voice.bat), else text only
+  #   capri - Capri's own voice: a free local model (Chatterbox Turbo, MIT licence) that clones the
+  #           voice in capricorn-data\voices\capri.wav (any clean 10-20 s recording)
+  #   sapi  - free built-in Windows voice (not Capri's voice, but it talks)
+  #   none  - text bubbles only
+  engine: auto
+  volume: 1.0                 # 0.1 - 3.0, on top of loudness (commands\change-voice-volume.bat)
+  loudness: -16               # how loud lines are made: -23 quiet, -16 normal, -12 loud (LUFS)
+  reference: capri.wav        # file in capricorn-data\voices\ (or a full path)
+  device: auto                # auto | cuda | cpu   (GPU makes her answer ~5x faster)
+  seed: 7                     # same seed = same delivery for the same line; -1 = vary every time
+  temperature: 0.8            # lower = steadier, higher = more expressive (0.5 - 1.0)
+  pronounce: {}               # extra phonetic spellings for her voice, e.g. {gonk: gonnk, Wukong: woo-kong}
+  emotion_tags: true          # laughing replies get a real chuckle, sad ones a sigh
+  duck_others: true           # lower other apps (music, videos, games) while Capri listens/talks
+  duck_level: 0.15            # how quiet they get: 0.15 = 15% of their volume, 0 = silent
+  mute_mic_while_speaking: true   # so she never hears (and answers) herself
+  speak_prompts: true         # say "Go ahead, choom" after a bare "Hey Capri" (only when it can play instantly)
+  prewarm: true               # pre-make her fixed lines in the background so they play instantly
+  greet_out_loud: true        # say the "Capri's online" greeting at startup (once her voice has loaded)
+  cached_lines: true          # play pre-recorded Capri lines from voice_cache when they match
+
+games:
+  # "Close the game": the game is asked to quit, and after a few seconds stopped like Steam's
+  # Stop button. true = ask before stopping a game that didn't quit by itself.
+  ask_before_force_stop: false
+
+web:
+  # If a YouTube / YouTube Music tab is the active tab in a browser window, play there
+  # instead of opening a new tab.
+  reuse_youtube_tab: true
+
+confirmations:
+  # When you say "yes" to "Launch X?" / "Open Y?", remember it and don't ask again for the same
+  # app / folder / file / website. Stored in capricorn-data/approvals.json (tray > Forget remembered
+  # approvals to reset). Sleep, shutdown and restart always ask.
+  remember: true
+
+music:
+  service: youtube_music      # youtube_music | youtube | spotify_web
+  # What "play some music" (no song named) does: liked = your Liked Music, home = the service's home page
+  default: liked
+
+shortcuts:
+  # Your own names for folders: "open projects" -> the path you set here.
+  folders: {}
+  #  projects: D:/Projects
+  #  capricorn: ~/Desktop/Capricorn
+
+sounds:
+  wake_chime: true

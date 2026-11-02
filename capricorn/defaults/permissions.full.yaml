@@ -1,0 +1,37 @@
+# Capricorn permissions - FULL ACCESS profile.
+# Capri may open any app, folder, file and website. Hard safety rules still apply:
+#  * no shell / script execution, programs are only launched as apps
+#  * executables/scripts are never "opened as files"
+#  * sleep / shutdown / restart always ask first
+#  * system folders listed under folders.deny stay blocked
+
+apps:
+  mode: all
+  allow: []
+  deny: []
+
+folders:
+  mode: all
+  allow: []
+  deny: ["C:/Windows", "~/AppData"]
+
+files:
+  mode: all
+  blocked_extensions: [".exe", ".bat", ".cmd", ".com", ".ps1", ".vbs", ".vbe", ".js", ".jse",
+                       ".wsf", ".wsh", ".msi", ".msp", ".scr", ".reg", ".lnk", ".hta", ".cpl", ".jar"]
+
+web:
+  mode: all
+  allow_domains: []
+  deny_domains: []
+
+browser:
+  use: system_default
+  custom_path: ""
+
+media_control:
+  mode: all
+
+system:
+  mode: all
+  allow: ["lock", "sleep", "shutdown", "restart"]

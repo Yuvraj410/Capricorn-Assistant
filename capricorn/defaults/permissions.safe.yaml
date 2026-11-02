@@ -1,0 +1,43 @@
+# Capricorn permissions - SAFE profile (default for new users).
+# Your personal copy lives in capricorn-data\permissions.yaml.
+#
+# Modes for each category:
+#   all        - anything in this category is allowed
+#   allowlist  - only entries listed under "allow"
+#   ask        - Capri asks you to confirm every time (say "yes" or click)
+#   off        - disabled
+# "deny" entries are always blocked, whatever the mode.
+
+apps:
+  mode: ask
+  allow: []            # app names as shown in the Start Menu, e.g. ["Steam", "Discord", "Spotify"]
+  deny: []
+
+folders:
+  mode: allowlist
+  allow: ["~/Desktop", "~/Downloads", "~/Documents", "~/Pictures", "~/Music", "~/Videos"]
+  deny: ["C:/Windows", "C:/Program Files", "C:/Program Files (x86)", "~/AppData"]
+
+files:
+  mode: ask            # files are also limited by the folder rules above
+  # Opening these would RUN something, so they are never opened as files.
+  # (Programs are launched through the "apps" rules instead.)
+  blocked_extensions: [".exe", ".bat", ".cmd", ".com", ".ps1", ".vbs", ".vbe", ".js", ".jse",
+                       ".wsf", ".wsh", ".msi", ".msp", ".scr", ".reg", ".lnk", ".hta", ".cpl", ".jar"]
+
+web:
+  mode: all
+  allow_domains: []    # used when mode = allowlist, e.g. ["youtube.com", "music.youtube.com"]
+  deny_domains: []
+
+browser:
+  use: system_default  # system_default | custom
+  custom_path: ""      # e.g. C:/Users/<you>/AppData/Local/Programs/Opera GX/opera.exe
+
+media_control:
+  mode: all            # play / pause / next / previous / volume / now playing
+
+system:
+  mode: ask
+  allow: ["lock"]      # lock | sleep | shutdown | restart
+  # sleep, shutdown and restart ALWAYS ask for confirmation, even when allowed.

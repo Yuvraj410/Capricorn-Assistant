@@ -1,0 +1,222 @@
+{
+  "canvas": [
+    512,
+    512
+  ],
+  "poses": {
+    "neutral": "neutral.png",
+    "smile": "smile.png",
+    "laughing": "laughing.png",
+    "surprised": "surprised.png",
+    "sad": "sad.png",
+    "angry": "angry.png",
+    "thinking": "thinking.png",
+    "blink": "blink.png",
+    "talking": "talking.png"
+  },
+  "animations": {
+    "blink": {
+      "frames": [
+        "blink_1.png",
+        "blink_2.png",
+        "blink_3.png",
+        "blink_4.png",
+        "blink_5.png"
+      ],
+      "durations_ms": [
+        900,
+        80,
+        100,
+        80,
+        300
+      ]
+    },
+    "talking": {
+      "frames": [
+        "talking_1.png",
+        "talking_2.png",
+        "talking_3.png",
+        "talking_4.png"
+      ],
+      "durations_ms": [
+        180,
+        200,
+        140,
+        260
+      ]
+    },
+    "dance": {
+      "frames": [
+        "dance_1.png",
+        "dance_2.png",
+        "dance_3.png",
+        "dance_4.png",
+        "dance_5.png",
+        "dance_6.png",
+        "dance_7.png",
+        "dance_8.png",
+        "dance_9.png",
+        "dance_10.png",
+        "dance_11.png",
+        "dance_12.png",
+        "dance_13.png",
+        "dance_14.png"
+      ],
+      "durations_ms": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ]
+    },
+    "glitch": {
+      "frames": [
+        "glitch_1.png",
+        "glitch_2.png",
+        "glitch_3.png",
+        "glitch_4.png",
+        "glitch_5.png",
+        "glitch_6.png",
+        "glitch_7.png",
+        "glitch_8.png",
+        "glitch_9.png",
+        "glitch_10.png",
+        "glitch_11.png",
+        "glitch_12.png",
+        "glitch_13.png",
+        "glitch_14.png",
+        "glitch_15.png",
+        "glitch_16.png",
+        "glitch_17.png",
+        "glitch_18.png"
+      ],
+      "durations_ms": [
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    "min_idle": {
+      "frames": [
+        "min_idle_1.png",
+        "min_idle_2.png",
+        "min_idle_3.png",
+        "min_idle_4.png",
+        "min_idle_5.png",
+        "min_idle_6.png",
+        "min_idle_7.png",
+        "min_idle_8.png"
+      ],
+      "durations_ms": [
+        2300,
+        60,
+        100,
+        60,
+        1500,
+        60,
+        100,
+        60
+      ]
+    },
+    "min_glitch": {
+      "frames": [
+        "min_glitch_1.png",
+        "min_glitch_2.png",
+        "min_glitch_3.png",
+        "min_glitch_4.png",
+        "min_glitch_5.png",
+        "min_glitch_6.png",
+        "min_glitch_7.png",
+        "min_glitch_8.png",
+        "min_glitch_9.png",
+        "min_glitch_10.png",
+        "min_glitch_11.png",
+        "min_glitch_12.png",
+        "min_glitch_13.png",
+        "min_glitch_14.png",
+        "min_glitch_15.png",
+        "min_glitch_16.png",
+        "min_glitch_17.png",
+        "min_glitch_18.png",
+        "min_glitch_19.png"
+      ],
+      "durations_ms": [
+        750,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        150,
+        50,
+        50,
+        50,
+        50,
+        350,
+        50,
+        50,
+        50,
+        50,
+        50,
+        500
+      ]
+    },
+    "min_talking": {
+      "frames": [
+        "min_talking_1.png",
+        "min_talking_2.png",
+        "min_talking_3.png",
+        "min_talking_4.png",
+        "min_talking_5.png",
+        "min_talking_6.png",
+        "min_talking_7.png",
+        "min_talking_8.png",
+        "min_talking_9.png",
+        "min_talking_10.png"
+      ],
+      "durations_ms": [
+        140,
+        100,
+        120,
+        140,
+        100,
+        100,
+        120,
+        120,
+        140,
+        100
+      ]
+    }
+  },
+  "minimal_size": [
+    501,
+    288
+  ],
+  "notes": "Normal mode: poses + blink/talking/dance/glitch. Minimal mode: min_* (visor face, cropped 501x288). Optional: add 'min_dance' to use a minimal dance."
+}
