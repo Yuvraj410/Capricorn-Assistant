@@ -75,13 +75,25 @@ def main() -> int:
     # 1. reference recording
     voices = paths.voices_dir()
     ref = voices / "capri.wav"
-    if a.reference:
-        src = Path(a.reference).expanduser()
+    bundled = paths.REPO_DIR / "reference-voices" / "capri.wav"
+    source = a.reference or (str(bundled) if not ref.exists() and bundled.is_file() else None)
+    if source:
+        src = Path(source).expanduser()
         if not src.exists():
             say("FAIL", f"Reference file not found: {src}")
             return 1
         ref = voices / f"capri{src.suffix.lower()}"
-        shutil.copyfile(src, ref)
+        if src.resolve() != ref.resolve():
+            shutil.copyfile(src, ref)
+        # Only copy named delivery samples, never the long packs of recorded lines.
+        for style in ("happy", "playful", "sad", "surprised", "angry", "calm"):
+            for ext in (".wav", ".mp3", ".flac", ".ogg"):
+                mood = src.with_name(f"{src.stem}-{style}{ext}")
+                if mood.is_file():
+                    dst = voices / f"{ref.stem}-{style}{ext}"
+                    if mood.resolve() != dst.resolve():
+                        shutil.copyfile(mood, dst)
+                    break
         say(" OK ", f"Reference voice copied to {ref}")
     if not ref.exists():
         say("FAIL", f"No reference recording. Put a clean 10-20 second clip of the voice at\n         {ref}\n"
@@ -147,8 +159,7 @@ def main() -> int:
     from capricorn.config import Settings
     s = Settings()
     s.set_and_save("voice.engine", "capri")
-    if ref.name != "capri.wav":
-        s.set_and_save("voice.reference", ref.name)
+    s.set_and_save("voice.reference", ref.name)
     say(" OK ", "Capri's voice is ON (voice.engine = capri). Restart Capricorn to hear her.")
     return 0
 

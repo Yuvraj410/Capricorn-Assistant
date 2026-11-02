@@ -1,0 +1,15 @@
+[cheerful, a bit louder] Turning myself up. Better, choom?
+[cheerful] Louder it is.
+[softly] Dialing it down.
+[softly, playful] Quieter. Inside voice, got it.
+[calm] Going dark. Say 'Hey Capri' when you need me.
+[quietly] Hidden. I'm still listening.
+[disappointed] Searched the whole deck. Nil.
+[curious] Didn't catch all of that, choom. Say it again?
+[teasing] You cut out halfway. One more time?
+[concerned] My brain's offline. Is Ollama running? Simple commands still work.
+[casual farewell] Delta-ing out. Call if you need me.
+[friendly] Hey, choom.
+[impressed] Looking sharp!
+[warm] Anytime, choom.
+[upbeat] Pream. Anything else?

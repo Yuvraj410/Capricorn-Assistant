@@ -1,0 +1,14 @@
+[upbeat] And we're back.
+[casual] Resuming.
+[happy] Music's back on.
+[matter-of-fact] Nothing's playing, choom. Already quiet.
+[mildly amused] It's already playing, choom.
+[energetic] Next track, coming up.
+[relieved] Muted. Peace and quiet.
+[neutral] Nothing's playing right now.
+[smug] Minimal mode. Just the eyes now, choom.
+[sneaky] Going stealth. Minimal mode on.
+[proud, playful] Full chrome's back. Missed me?
+[confident] Normal mode. Looking sharp!
+[friendly] I'll stick around on screen.
+[teasing laugh] Staying visible. Try not to stare.

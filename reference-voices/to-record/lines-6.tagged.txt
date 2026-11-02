@@ -1,0 +1,14 @@
+[calm] Locking your deck. Back soon?
+[gentle] Sleep mode. Sweet dreams, deck.
+[calm] Shutting down. Later, choom.
+[quick] Restarting. Back in a flash.
+[inviting] Go ahead, choom.
+[attentive] Yeah?
+[attentive] Mm-hm?
+[curious] What do you need?
+[ready] Listening.
+[playful] You rang?
+[eager] What's the job, choom?
+[thinking] One sec.
+[thinking] Working on it.
+[pleasantly surprised] Oh! Hey.

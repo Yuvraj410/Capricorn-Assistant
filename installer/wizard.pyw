@@ -192,7 +192,8 @@ class Wizard(tk.Tk):
         self.v_gpu_speech = tk.BooleanVar(value=False)
         self.v_voice = tk.StringVar(value="sapi")
         self.v_voice_gpu = tk.BooleanVar(value=bool(self.gpu))
-        self.v_ref = tk.StringVar(value="")
+        bundled_ref = SRC / "reference-voices" / "capri.wav"
+        self.v_ref = tk.StringVar(value=str(bundled_ref) if bundled_ref.is_file() else "")
         self.v_perms = tk.StringVar(value="safe")
         self.v_slang = tk.StringVar(value="Light")
         self.v_startup = tk.BooleanVar(value=True)
@@ -544,8 +545,8 @@ class Wizard(tk.Tk):
             ttk.Entry(r, textvariable=self.v_ref).pack(side="left", fill="x", expand=True, padx=8)
             ttk.Button(r, text="PICK FILE", command=self._pick_ref).pack(side="left")
             ttk.Label(q, style="PanelDim.TLabel", wraplength=620, justify="left", text=(
-                "10-20 seconds of one person talking clearly, no music (wav, mp3, flac). No voice ships with "
-                "Capricorn - use your own, or one you have the rights to. You can add mood clips later "
+                "The included Capri recording is selected automatically when available. To change it, pick "
+                "10-20 seconds of one person talking clearly, no music (wav, mp3, flac). Add mood clips later "
                 "(see README).")).pack(anchor="w", padx=12, pady=(0, 10))
 
     def _pick_ref(self) -> None:
@@ -892,7 +893,7 @@ class Installer:
     # steps --------------------------------------------------------------------------------------------------
     # what an installed Capricorn needs (the repo also has tests and the sources of the two exes)
     INSTALL_ITEMS = ["capricorn", "assets", "commands", "scripts", "tools", "installer", "launcher", "Setup.exe",
-                     "README.md", "LICENSE", "requirements.txt", "requirements-voice.txt"]
+                     "README.md", "LICENSE", "requirements.txt", "requirements-voice.txt", "reference-voices"]
     SKIP = staticmethod(shutil.ignore_patterns("__pycache__", "*.pyc", "*.c", "*.rc", "*.manifest", "build.py", "*.pdb"))
 
     def copy_files(self) -> None:

@@ -28,6 +28,7 @@ Say **"Hey Capri"** and she pops up over whatever you're doing, answers in neon 
 11. [Updating and uninstalling](#updating-and-uninstalling)
 12. [For developers](#for-developers)
 13. [Credits and licences](#credits-and-licences)
+14. [Customize the voice, artwork and theme](#customize-the-voice-artwork-and-theme)
 
 ---
 
@@ -145,9 +146,11 @@ Choose in Setup or later in Settings > Voice:
 |---|---|
 | **Text only** | Chat bubbles, no sound. |
 | **Windows voice** | Instant and built in, but not Capri's voice. |
-| **Capri's own voice** | [Chatterbox Turbo](https://github.com/resemble-ai/chatterbox) (free, MIT licence) runs locally and **clones the voice of a short recording you provide**. |
+| **Capri's own voice** | [Chatterbox Turbo](https://github.com/resemble-ai/chatterbox) runs locally and clones the included Capri reference or a recording you select. |
 
-**No voice ships with Capricorn.** Bring a clean 10–20 second recording (one person, no music) of a voice you have the right to use. Setup copies it to `capricorn-data\voices\capri.wav`. You can also install the voice later with `commands\install-capri-voice.bat`.
+**Voice samples are included in `reference-voices/`.** Select **Capri's own voice** during Setup; `capri.wav` is selected automatically. Setup copies the active reference and its named mood recordings into `capricorn-data\voices\`. The included calm and playful samples provide alternate delivery; other moods fall back to the main reference. You can also install the voice later with `commands\install-capri-voice.bat`. Windows voice remains the default unless you choose Capri's voice.
+
+The folder also contains all seven original MP3 downloads, their available transcripts, and scripts for future recordings in `to-record/`. Alternate takes are available for you to choose; they are not mixed together. `lines-1.mp3` and `lines-2.mp3` are long packs of recorded lines, not ready-to-play individual replies. See `reference-voices/NOTES.md` for the recordings' source and personal-use restriction; the code's MIT licence does not grant rights to those recordings.
 
 Extras, all optional:
 - **Mood clips:** add `capri-happy.wav`, `capri-playful.wav`, `capri-sad.wav`, `capri-surprised.wav`, `capri-angry.wav` and `capri-calm.wav` (about 12–15 s each) next to `capri.wav`, and she speaks every reply in the matching mood.
@@ -293,3 +296,61 @@ capricorn-data\                  Python environments, models, logs, your setting
   - Whisper (MIT)
   - Chatterbox (MIT)
 - **Slang and vibe** inspired by Cyberpunk 2077. Fan project, not affiliated with CD PROJEKT RED.
+
+---
+
+## Customize the voice, artwork and theme
+
+These paths are relative to your **installed Capricorn folder** (normally `%LOCALAPPDATA%\Programs\Capricorn`), or your extracted repository if you chose *install right here*. Quit Capri from the tray first, back up the files you edit, and restart her afterward. Updates can replace code and artwork, so keep a separate copy of your custom theme.
+
+### Change the voice
+
+1. Prepare a clean 10–20 second recording with one speaker and no music. Use a voice you have permission to use. WAV, MP3 and FLAC work in Setup.
+2. During Setup, choose **Capri's own voice**, then **PICK FILE** to replace the preselected sample. This installs the local voice engine and copies your recording into the data folder.
+3. After installation, you can install or replace the reference from a terminal opened in the install folder:
+
+   ```bat
+   commands\install-capri-voice.bat --reference "C:\My Voices\my-voice.wav"
+   ```
+
+   Add `--cpu` if you want the CPU version. The helper restarts Capri when installation succeeds. To use an included alternate take, pass its full path in `reference-voices/` instead.
+4. In **Settings > Voice**, select the voice engine and adjust its settings. **Text only** and **Windows voice** do not need the AI voice model. Use **Test her voice** to check the result.
+
+For emotional delivery, place recordings beside the selected source before running the installer, using the source's base name plus `-happy`, `-playful`, `-sad`, `-surprised`, `-angry` or `-calm`. For example, `my-voice.wav` can have `my-voice-calm.wav`. The installer copies these to the corresponding `capri-<mood>` names. You can also place `capri-calm.wav`, etc. directly in `capricorn-data\voices\`. Keep one audio file per mood. When changing speakers, move old mood recordings out of that folder so the previous speaker is not used for emotional replies. Missing moods use the main reference.
+
+Settings' `voice.reference` value is a filename relative to `capricorn-data\voices\` (or an absolute path). The installer sets it for you. If you replace a reference manually, ensure this value matches the actual filename. Data may instead live under `%APPDATA%\Capricorn` or the `CAPRICORN_HOME` override if configured.
+
+The long `lines-*.mp3` packs must be split and checked before they can be used as individual recorded replies. Follow `commands/README.md` and `tools/split_voice_lines.py`; merely copying an unsplit pack does not enable recorded replies.
+
+### Replace character artwork
+
+1. Open `assets\character\`. Its `manifest.json` lists the images and animation frames Capri actually loads.
+2. For the easiest swap, replace the PNGs with your own transparent images using the **same filenames**. Keep a consistent canvas and character alignment; the existing full character uses a 512 × 512 canvas. Preserve transparent margins so the character does not jump between poses.
+3. Replace the emotion images listed under `poses`: `neutral`, `smile`, `laughing`, `surprised`, `sad`, `angry`, `thinking`, `blink` and `talking`. If you use different filenames, change their values in `manifest.json` too. Keep the pose names themselves.
+4. Restart Capri and try different expressions and music playback. Character size can be adjusted through the appearance settings.
+
+### Use your own GIFs or animations
+
+Capri loads **separate image frames** from the manifest; dropping an animated GIF into the folder will not make it play as an animation.
+
+1. In an image editor, open your GIF and export its fully composited frames as transparent PNGs, keeping the same canvas and alignment. Preserve each frame's delay in milliseconds.
+2. Put the frames in `assets\character\` and edit the appropriate entry under `animations` in `manifest.json`. Keep the existing animation keys, such as `blink`, `talking`, `dance` and `glitch`; preserve the existing `min_` entries for the minimal visor mode.
+3. List frames in playback order and supply one positive duration per frame. For example, a replacement dance entry could be:
+
+   ```json
+   "dance": {
+     "frames": ["my-dance-1.png", "my-dance-2.png"],
+     "durations_ms": [160, 160]
+   }
+   ```
+
+   Replace only that entry inside the existing `animations` object. Keep valid JSON: double quotes, commas between entries, and no trailing comma. The example is an entry, not a complete manifest.
+4. Restart Capri and play music to check the dance. Test the blink, talking and appearance animations too. Replace minimal-mode frames separately if you want a matching visor design.
+
+### Change colours, fonts and icons
+
+- **Chat colours:** edit `capricorn\ui\theme.py`. The `QColor("#...")` values near the top control text, backgrounds and accent colours (`TEXT`, `SECONDARY`, `PINK`, `CYAN`, `GREEN`, `BUBBLE`, `BUBBLE_USER`, `PURPLE`, `BG`). Keep the existing Python syntax and change the hex colour values. Some additional widget colours are literal values in that file's stylesheet and in `capricorn\ui\settings_window.py`.
+- **Fonts:** bundled TTF files live in `assets\fonts\`. The current loader recognizes Rajdhani and Inter. Using another family requires updating `load_fonts()` in `capricorn\ui\theme.py` to recognize and assign it; changing a filename alone does not select a new family. Windows fallback fonts are also defined there.
+- **Icons:** replace `assets\icon.png` and `assets\icon.ico` with your own versions. Icons embedded in `Setup.exe` and the launcher require rebuilding those executables; replacing the asset files alone does not change embedded Windows icons. See **For developers**.
+
+There is currently no theme-import button. Artwork, animation and colour changes are manual file edits; keep your originals so you can restore them if a change does not load.

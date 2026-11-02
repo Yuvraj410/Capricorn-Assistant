@@ -17,8 +17,8 @@ settings.local.yaml
 permissions.local.yaml
 
 # personal voice recordings - never publish
-reference-voices/
 *.mp3
+!reference-voices/*.mp3
 
 # OS
 Thumbs.db
